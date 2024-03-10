@@ -1,0 +1,24 @@
+runtime: python
+env: flex
+
+runtime_config:
+  python_version: 3.11
+  operating_system: "ubuntu22"
+
+entrypoint: streamlit run --server.port=8080 --server.enableCORS=false --server.enableWebsocketCompression=false --server.enableXsrfProtection=false --server.headless=true get_free_slot_service.py
+
+readiness_check:
+  path: "/"
+  check_interval_sec: 5
+  timeout_sec: 4
+  failure_threshold: 2
+  success_threshold: 2
+  app_start_timeout_sec: 1800
+
+liveness_check:
+   path: "/"
+   check_interval_sec: 120
+   timeout_sec: 40
+   failure_threshold: 5
+   success_threshold: 5
+   initial_delay_sec: 300
